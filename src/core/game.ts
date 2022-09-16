@@ -6,12 +6,12 @@
 import { useGlobalStore } from "./globalStore";
 // @ts-ignore
 import _ from "lodash";
-import { nextTick, ref } from "vue";
+import { ref } from "vue";
 
 const useGame = () => {
   const { gameConfig } = useGlobalStore();
 
-  // 游戏状态：0 - 初始化, 1 - 进行中, 2 - 结束
+  // 游戏状态：0 - 初始化, 1 - 进行中, 2 - 失败结束, 3 - 胜利
   const gameStatus = ref(0);
 
   // 各层块
@@ -25,6 +25,12 @@ const useGame = () => {
 
   // 保存所有块（包括随机块）
   const blockData: Record<number, BlockType> = {};
+
+  // 总块数
+  let totalBlockNum = 0;
+
+  // 已消除块数
+  let clearBlockNum = 0;
 
   // 总共划分 24 x 24 的格子，每个块占 3 x 3 的格子，生成的起始 x 和 y 坐标范围均为 0 ~ 21
   const boxWidthNum = 24;
@@ -86,7 +92,7 @@ const useGame = () => {
 
     // 补齐到 blockNumUnit 的倍数
     // e.g. minBlockNum = 14, blockNumUnit = 6, 补到 18
-    let totalBlockNum = minBlockNum;
+    totalBlockNum = minBlockNum;
     if (totalBlockNum % blockNumUnit !== 0) {
       totalBlockNum =
         (Math.floor(minBlockNum / blockNumUnit) + 1) * blockNumUnit;
@@ -325,6 +331,8 @@ const useGame = () => {
       if (map[slotBlock.type] >= gameConfig.composeNum) {
         // 块状态改为已消除
         slotBlock.status = 2;
+        // 已消除块数 +1
+        clearBlockNum++;
         return;
       }
       newSlotAreaVal[tempSlotNum++] = slotBlock;
@@ -337,6 +345,9 @@ const useGame = () => {
       setTimeout(() => {
         alert("你输了");
       }, 2000);
+    }
+    if (clearBlockNum >= totalBlockNum) {
+      gameStatus.value = 3;
     }
   };
 

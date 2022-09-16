@@ -2,6 +2,11 @@
   <div id="gamePage">
     <a-button style="margin-bottom: 8px" @click="doBack"> 返回</a-button>
     <a-row align="center">
+      <!-- 胜利 -->
+      <div v-if="gameStatus === 3" style="text-align: center">
+        <h2>恭喜，你赢啦！🎉</h2>
+        <img src="../assets/kunkun.png" />
+      </div>
       <!-- 分层选块 -->
       <div class="level-board">
         <div

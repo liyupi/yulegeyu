@@ -28,16 +28,23 @@
       style="margin-bottom: 16px"
       @click="toGamePage(lunaticGameConfig)"
     >
-      地域模式
+      地狱模式
     </a-button>
     <a-button block style="margin-bottom: 16px" @click="toGamePage(null)">
       自定义
     </a-button>
+    <a href="https://github.com/liyupi/yulegeyu" target="_blank">
+      <div style="background: rgba(0, 0, 0, 0.8); padding: 12px">
+        <github-outlined />
+        代码完全开源，欢迎 star
+      </div>
+    </a>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { GithubOutlined } from "@ant-design/icons-vue";
 import {
   easyGameConfig,
   middleGameConfig,
