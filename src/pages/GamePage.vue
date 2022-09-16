@@ -100,6 +100,7 @@ onMounted(() => {
 .random-board {
     margin: 0 calc(50% - 184px);
     margin-top: 8px;
+    min-height: 100px;
 }
 
 .random-area {
