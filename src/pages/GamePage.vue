@@ -1,6 +1,6 @@
 <template>
   <div id="gamePage">
-    <a-button @click="doBack"> ⬅️ 返回</a-button>
+    <a-button style="margin-bottom: 8px" @click="doBack"> 返回</a-button>
     <a-row align="center">
       <!-- 分层选块 -->
       <div class="level-board">

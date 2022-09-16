@@ -24,7 +24,7 @@
 #app {
   padding: 16px 16px 50px;
   background: url("assets/bg.jpeg");
-  height: 100vh;
+  min-height: 100vh;
   background-size: 100% 100%;
 }
 

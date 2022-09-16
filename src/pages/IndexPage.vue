@@ -30,8 +30,8 @@
     >
       地域模式
     </a-button>
-    <a-button block style="margin-bottom: 16px" disabled @click="toGamePage">
-      自定义（暂未开放）
+    <a-button block style="margin-bottom: 16px" @click="toGamePage(null)">
+      自定义
     </a-button>
   </div>
 </template>
@@ -53,8 +53,10 @@ const { setGameConfig } = useGlobalStore();
 const toGamePage = (config?: GameConfig) => {
   if (config) {
     setGameConfig(config);
+    router.push("/game");
+  } else {
+    router.push("/config");
   }
-  router.push("/game");
 };
 </script>
 
