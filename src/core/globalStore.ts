@@ -1,49 +1,5 @@
 import { defineStore } from "pinia";
-
-const defaultGameConfig = {
-  // 槽容量
-  slotNum: 7,
-  // 需要多少个一样块的才能合成
-  composeNum: 3,
-  // 动物类别数
-  typeNum: 12,
-  // 每层块数（大致）
-  levelBlockNum: 30,
-  // 边界收缩步长
-  borderStep: 1,
-  // 总层数（最小为 2）
-  levelNum: 8,
-  // 最上层块数
-  topBlockNum: 40,
-  // 最下层块数最小值
-  minBottomBlockNum: 20,
-  // 随机区块数（数组长度代表随机区数量，值表示每个随机区生产多少块）
-  randomBlocks: [8, 8],
-  // 动物数组
-  animals: [
-    "🐔",
-    "🐟",
-    "🦆",
-    "🐶",
-    "🐱",
-    "🐴",
-    "🐑",
-    "🐦",
-    "🐧",
-    "🐊",
-    "🐺",
-    "🐒",
-    "🐳",
-    "🐬",
-    "🐢",
-    "🦖",
-    "🦒",
-    "🦁",
-    "🐍",
-    "🐭",
-    "🐂",
-  ],
-};
+import { defaultGameConfig } from "./gameConfig";
 
 /**
  * 全局状态存储
@@ -52,6 +8,7 @@ const defaultGameConfig = {
  */
 export const useGlobalStore = defineStore("global", {
   state: () => ({
+    customConfig: { ...defaultGameConfig },
     gameConfig: { ...defaultGameConfig },
   }),
   getters: {},
@@ -67,6 +24,12 @@ export const useGlobalStore = defineStore("global", {
     },
   },
   actions: {
+    setGameConfig(gameConfig: GameConfig) {
+      this.gameConfig = gameConfig;
+    },
+    setCustomConfig(customConfig: GameConfig) {
+      this.customConfig = customConfig;
+    },
     reset() {
       this.$reset();
     },
