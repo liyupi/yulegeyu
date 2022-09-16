@@ -6,13 +6,13 @@ const defaultGameConfig = {
   // 需要多少个一样块的才能合成
   composeNum: 3,
   // 动物类别数
-  typeNum: 10,
+  typeNum: 12,
   // 每层块数（大致）
   levelBlockNum: 30,
   // 边界收缩步长
   borderStep: 1,
   // 总层数（最小为 2）
-  levelNum: 2,
+  levelNum: 8,
   // 最上层块数
   topBlockNum: 40,
   // 最下层块数最小值
