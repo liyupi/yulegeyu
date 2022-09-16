@@ -89,6 +89,8 @@ onMounted(() => {
 <style scoped>
 .level-board {
     position: relative;
+    margin: 0 calc(50% - 184px);
+    width: 100%;
 }
 
 .level-block {
@@ -96,6 +98,7 @@ onMounted(() => {
 }
 
 .random-board {
+    margin: 0 calc(50% - 184px);
     margin-top: 8px;
 }
 
@@ -104,8 +107,9 @@ onMounted(() => {
 }
 
 .slot-board {
-    margin-top: 24px;
     border: 10px solid saddlebrown;
+    margin: 0 calc(50% - 157px);
+    margin-top: 24px;
 }
 
 .block {
