@@ -24,10 +24,10 @@ export const useGlobalStore = defineStore("global", {
     },
   },
   actions: {
-    setGameConfig(gameConfig: GameConfig) {
+    setGameConfig(gameConfig: GameConfigType) {
       this.gameConfig = gameConfig;
     },
-    setCustomConfig(customConfig: GameConfig) {
+    setCustomConfig(customConfig: GameConfigType) {
       this.customConfig = customConfig;
     },
     reset() {

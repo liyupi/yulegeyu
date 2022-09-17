@@ -53,9 +53,9 @@ import { defaultGameConfig } from "../core/gameConfig";
 const formRef = ref<FormInstance>();
 const router = useRouter();
 const { setGameConfig, setCustomConfig } = useGlobalStore();
-const config = reactive<GameConfig>({ ...defaultGameConfig });
+const config = reactive<GameConfigType>({ ...defaultGameConfig });
 
-const handleFinish = (values: GameConfig) => {
+const handleFinish = (values: GameConfigType) => {
   setGameConfig(config);
   setCustomConfig(config);
   router.push("/game");

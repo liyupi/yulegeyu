@@ -24,9 +24,9 @@ interface ChessBoardUnitType {
 }
 
 /**
- * 游戏配置
+ * 游戏配置类型
  */
-interface GameConfig {
+interface GameConfigType {
   // 槽容量
   slotNum: number;
   // 需要多少个一样块的才能合成
@@ -47,4 +47,14 @@ interface GameConfig {
   // topBlockNum: 40,
   // 最下层块数最小值（已废弃）
   // minBottomBlockNum: 20,
+}
+
+/**
+ * 技能类型
+ */
+interface SkillType {
+  name: string;
+  desc: string;
+  icon: string;
+  action: function;
 }

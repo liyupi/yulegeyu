@@ -24,6 +24,7 @@ const useGame = () => {
   const currSlotNum = ref(0);
 
   // 保存所有块（包括随机块）
+  const allBlocks: BlockType[] = [];
   const blockData: Record<number, BlockType> = {};
 
   // 总块数
@@ -42,6 +43,9 @@ const useGame = () => {
 
   // 保存整个 "棋盘" 的每个格子状态（下标为格子起始点横纵坐标）
   let chessBoard: ChessBoardUnitType[][] = [];
+
+  // 操作历史（存储点击的块）
+  let opHistory: BlockType[] = [];
 
   /**
    * 初始化指定大小的棋盘
@@ -80,9 +84,12 @@ const useGame = () => {
     console.log("块数单位", blockNumUnit);
 
     // 随机生成的总块数
-    const totalRandomBlockNum = gameConfig.randomBlocks.reduce((pre, curr) => {
-      return pre + curr;
-    }, 0);
+    const totalRandomBlockNum = gameConfig.randomBlocks.reduce(
+      (pre: number, curr: number) => {
+        return pre + curr;
+      },
+      0
+    );
     console.log("随机生成的总块数", totalRandomBlockNum);
 
     // 需要的最小块数
@@ -112,7 +119,6 @@ const useGame = () => {
     const randomAnimalBlocks = _.shuffle(animalBlocks);
 
     // 初始化
-    const allBlocks: BlockType[] = [];
     for (let i = 0; i < totalBlockNum; i++) {
       const newBlock = {
         id: i,
@@ -130,7 +136,7 @@ const useGame = () => {
 
     // 3. 计算随机生成的块
     const randomBlocks: BlockType[][] = [];
-    gameConfig.randomBlocks.forEach((randomBlock, idx) => {
+    gameConfig.randomBlocks.forEach((randomBlock: number, idx: number) => {
       randomBlocks[idx] = [];
       for (let i = 0; i < randomBlock; i++) {
         randomBlocks[idx].push(allBlocks[pos]);
@@ -271,15 +277,15 @@ const useGame = () => {
   /**
    * 点击块事件
    * @param block
-   * @param e
    * @param randomIdx 随机区域下标，>= 0 表示点击的是随机块
+   * @param force 强制移除
    */
-  const doClickBlock = (block: BlockType, e: Event, randomIdx = -1) => {
+  const doClickBlock = (block: BlockType, randomIdx = -1, force = false) => {
     // 已经输了 / 已经被点击 / 有上层块，不能再点击
     if (
       currSlotNum.value >= gameConfig.slotNum ||
       block.status !== 0 ||
-      block.lowerThanBlocks.length > 0
+      (block.lowerThanBlocks.length > 0 && !force)
     ) {
       return;
     }
@@ -293,9 +299,8 @@ const useGame = () => {
         randomBlocksVal.value[randomIdx].length
       );
     } else {
-      // 删除节点
-      // @ts-ignore
-      e.target.remove();
+      // 非随机区才可撤回
+      opHistory.push(block);
       // 移除覆盖关系
       block.higherThanBlocks.forEach((higherThanBlock) => {
         _.remove(higherThanBlock.lowerThanBlocks, (lowerThanBlock) => {
@@ -333,6 +338,8 @@ const useGame = () => {
         slotBlock.status = 2;
         // 已消除块数 +1
         clearBlockNum++;
+        // 清除操作记录，防止撤回
+        opHistory = [];
         return;
       }
       newSlotAreaVal[tempSlotNum++] = slotBlock;
@@ -364,6 +371,93 @@ const useGame = () => {
     gameStatus.value = 1;
   };
 
+  // region 技能
+
+  /**
+   * 洗牌
+   *
+   * @desc 随机重洗所有未被点击的块
+   */
+  const doShuffle = () => {
+    // 遍历所有未消除的块
+    const originBlocks = allBlocks.filter((block) => block.status === 0);
+    const newBlockTypes = _.shuffle(originBlocks.map((block) => block.type));
+    let pos = 0;
+    originBlocks.forEach((block) => {
+      block.type = newBlockTypes[pos++];
+    });
+    levelBlocksVal.value = [...levelBlocksVal.value];
+  };
+
+  /**
+   * 破坏
+   *
+   * @desc 消除一组层级块
+   */
+  const doBroke = () => {
+    // 类型，块列表映射
+    const typeBlockMap: Record<string, BlockType[]> = {};
+    const blocks = levelBlocksVal.value.filter((block) => block.status === 0);
+    // 遍历所有未消除的层级块
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+      if (!typeBlockMap[block.type]) {
+        typeBlockMap[block.type] = [];
+      }
+      typeBlockMap[block.type].push(block);
+      // 有能消除的一组块
+      if (typeBlockMap[block.type].length >= gameConfig.composeNum) {
+        typeBlockMap[block.type].forEach((clickBlock) => {
+          doClickBlock(clickBlock, -1, true);
+        });
+        console.log("doBroke", typeBlockMap[block.type]);
+        break;
+      }
+    }
+  };
+
+  /**
+   * 撤回
+   *
+   * @desc 后退一步
+   */
+  const doRevert = () => {
+    if (opHistory.length < 1) {
+      return;
+    }
+    opHistory[opHistory.length - 1].status = 0;
+    // @ts-ignore
+    slotAreaVal.value[currSlotNum.value - 1] = null;
+  };
+
+  /**
+   * 移出块
+   */
+  const doRemove = () => {
+    // 移除第一个块
+    const block = slotAreaVal.value[0];
+    if (!block) {
+      return;
+    }
+    // 槽移除块
+    for (let i = 0; i < slotAreaVal.value.length - 1; i++) {
+      slotAreaVal.value[i] = slotAreaVal.value[i - 1];
+    }
+    // @ts-ignore
+    slotAreaVal.value[slotAreaVal.value.length - 1] = null;
+    // 改变新块的坐标
+    block.x = Math.floor(Math.random() * (boxWidthNum - 2));
+    block.y = boxHeightNum - 2;
+    block.status = 0;
+    // 移除的是随机块的元素，移到层级区域
+    if (block.level < 1) {
+      block.level = 10000;
+      levelBlocksVal.value.push(block);
+    }
+  };
+
+  // endregion
+
   return {
     gameStatus,
     levelBlocksVal,
@@ -371,8 +465,14 @@ const useGame = () => {
     slotAreaVal,
     widthUnit,
     heightUnit,
+    currSlotNum,
+    opHistory,
     doClickBlock,
     doStart,
+    doShuffle,
+    doBroke,
+    doRemove,
+    doRevert,
   };
 };
 

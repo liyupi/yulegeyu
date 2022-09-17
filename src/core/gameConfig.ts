@@ -23,7 +23,7 @@ const animals = [
   "🐂",
 ];
 
-export const defaultGameConfig: GameConfig = {
+export const defaultGameConfig: GameConfigType = {
   // 槽容量
   slotNum: 7,
   // 需要多少个一样块的才能合成
@@ -45,7 +45,7 @@ export const defaultGameConfig: GameConfig = {
 /**
  * 简单难度
  */
-export const easyGameConfig: GameConfig = {
+export const easyGameConfig: GameConfigType = {
   // 槽容量
   slotNum: 7,
   // 需要多少个一样块的才能合成
@@ -67,7 +67,7 @@ export const easyGameConfig: GameConfig = {
 /**
  * 中等难度
  */
-export const middleGameConfig: GameConfig = {
+export const middleGameConfig: GameConfigType = {
   // 槽容量
   slotNum: 7,
   // 需要多少个一样块的才能合成
@@ -89,7 +89,7 @@ export const middleGameConfig: GameConfig = {
 /**
  * 困难难度
  */
-export const hardGameConfig: GameConfig = {
+export const hardGameConfig: GameConfigType = {
   // 槽容量
   slotNum: 7,
   // 需要多少个一样块的才能合成
@@ -111,7 +111,7 @@ export const hardGameConfig: GameConfig = {
 /**
  * 地狱难度
  */
-export const lunaticGameConfig: GameConfig = {
+export const lunaticGameConfig: GameConfigType = {
   // 槽容量
   slotNum: 7,
   // 需要多少个一样块的才能合成

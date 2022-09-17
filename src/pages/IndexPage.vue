@@ -39,6 +39,20 @@
         代码完全开源，欢迎 star
       </div>
     </a>
+    <div class="footer">
+      鱼了个鱼 ©2022 by
+      <a href="https://github.com/liyupi" target="_blank" style="color: #fff">
+        程序员鱼皮
+      </a>
+      |
+      <a
+        href="https://github.com/liyupi/yulegeyu"
+        target="_blank"
+        style="color: #fff"
+      >
+        代码开源
+      </a>
+    </div>
   </div>
 </template>
 
@@ -57,7 +71,7 @@ const router = useRouter();
 
 const { setGameConfig } = useGlobalStore();
 
-const toGamePage = (config?: GameConfig) => {
+const toGamePage = (config?: GameConfigType) => {
   if (config) {
     setGameConfig(config);
     router.push("/game");
@@ -70,5 +84,16 @@ const toGamePage = (config?: GameConfig) => {
 <style scoped>
 #indexPage {
   text-align: center;
+}
+
+.footer {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>
