@@ -441,7 +441,7 @@ const useGame = () => {
     }
     // 槽移除块
     for (let i = 0; i < slotAreaVal.value.length - 1; i++) {
-      slotAreaVal.value[i] = slotAreaVal.value[i - 1];
+      slotAreaVal.value[i] = slotAreaVal.value[i + 1];
     }
     // @ts-ignore
     slotAreaVal.value[slotAreaVal.value.length - 1] = null;

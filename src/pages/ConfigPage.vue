@@ -47,7 +47,10 @@
         >
           开始
         </a-button>
-        <a-button block @click="resetForm">重置</a-button>
+        <a-button block style="margin-bottom: 12px" @click="resetForm"
+          >重置
+        </a-button>
+        <a-button block danger @click="resetConfig">还原最初配置</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -61,12 +64,13 @@ import { defaultGameConfig } from "../core/gameConfig";
 
 const formRef = ref<FormInstance>();
 const router = useRouter();
-const { setGameConfig, setCustomConfig } = useGlobalStore();
+const { customConfig, setGameConfig, setCustomConfig, reset } =
+  useGlobalStore();
 const initConfig = {
-  ...defaultGameConfig,
   randomAreaNum: 2,
   randomBlockNum: 8,
   animalStr: defaultGameConfig.animals.join(""),
+  ...customConfig,
 };
 const config = reactive<any>(initConfig);
 
@@ -88,6 +92,14 @@ const handleFinish = (values: any) => {
 
 const resetForm = () => {
   formRef?.value?.resetFields();
+};
+
+/**
+ * 还原至初始配置
+ */
+const resetConfig = () => {
+  reset();
+  router.go(0);
 };
 
 /**
