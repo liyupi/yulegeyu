@@ -47,7 +47,7 @@ const useGame = () => {
   // 操作历史（存储点击的块）
   let opHistory: BlockType[] = [];
 
-  // region 道具相关
+  // region 技能相关
 
   const isHolyLight = ref(false);
 
