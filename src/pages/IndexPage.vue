@@ -30,15 +30,24 @@
     >
       地狱模式
     </a-button>
-    <a-button block style="margin-bottom: 16px" @click="() => toGamePage()">
-      自定义
+    <a-button
+      block
+      style="margin-bottom: 16px"
+      @click="toGamePage(skyGameConfig)"
+    >
+      天域模式
     </a-button>
-    <a href="https://github.com/liyupi/yulegeyu" target="_blank">
-      <div style="background: rgba(0, 0, 0, 0.8); padding: 12px">
-        <github-outlined />
-        代码完全开源，欢迎 star
-      </div>
-    </a>
+    <a-button
+      block
+      style="margin-bottom: 16px"
+      @click="toGamePage(yangGameConfig)"
+    >
+      羊了个羊模式
+    </a-button>
+    <a-button block style="margin-bottom: 16px" @click="() => toGamePage()">
+      自定义 🔥
+    </a-button>
+    <my-ad />
     <div class="footer">
       鱼了个鱼 ©2022 by
       <a href="https://github.com/liyupi" target="_blank" style="color: #fff">
@@ -58,14 +67,16 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { GithubOutlined } from "@ant-design/icons-vue";
 import {
   easyGameConfig,
   middleGameConfig,
   hardGameConfig,
   lunaticGameConfig,
+  skyGameConfig,
+  yangGameConfig,
 } from "../core/gameConfig";
 import { useGlobalStore } from "../core/globalStore";
+import MyAd from "../components/MyAd.vue";
 
 const router = useRouter();
 

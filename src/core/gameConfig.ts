@@ -129,3 +129,47 @@ export const lunaticGameConfig: GameConfigType = {
   // 动物数组
   animals,
 };
+
+/**
+ * 天狱难度
+ */
+export const skyGameConfig: GameConfigType = {
+  // 槽容量
+  slotNum: 7,
+  // 需要多少个一样块的才能合成
+  composeNum: 3,
+  // 动物类别数
+  typeNum: 16,
+  // 每层块数（大致）
+  levelBlockNum: 24,
+  // 边界收缩步长
+  borderStep: 2,
+  // 总层数（最小为 2）
+  levelNum: 12,
+  // 随机区块数（数组长度代表随机区数量，值表示每个随机区生产多少块）
+  randomBlocks: [8, 8],
+  // 动物数组
+  animals,
+};
+
+/**
+ * 羊了个羊难度
+ */
+export const yangGameConfig: GameConfigType = {
+  // 槽容量
+  slotNum: 7,
+  // 需要多少个一样块的才能合成
+  composeNum: 3,
+  // 动物类别数
+  typeNum: 18,
+  // 每层块数（大致）
+  levelBlockNum: 28,
+  // 边界收缩步长
+  borderStep: 3,
+  // 总层数（最小为 2）
+  levelNum: 15,
+  // 随机区块数（数组长度代表随机区数量，值表示每个随机区生产多少块）
+  randomBlocks: [8, 8],
+  // 动物数组
+  animals,
+};
