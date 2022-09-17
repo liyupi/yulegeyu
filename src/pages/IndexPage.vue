@@ -30,7 +30,7 @@
     >
       地狱模式
     </a-button>
-    <a-button block style="margin-bottom: 16px" @click="toGamePage(null)">
+    <a-button block style="margin-bottom: 16px" @click="() => toGamePage()">
       自定义
     </a-button>
     <a href="https://github.com/liyupi/yulegeyu" target="_blank">
