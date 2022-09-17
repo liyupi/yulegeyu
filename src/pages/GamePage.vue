@@ -106,40 +106,56 @@ onMounted(() => {
 
 <style scoped>
 .level-board {
-  position: relative;
+    position: relative;
+    margin: 0 calc(50% - 184px);
+    width: 100%;
 }
 
 .level-block {
-  position: absolute;
+    position: absolute;
 }
 
 .random-board {
-  margin-top: 8px;
+    margin: 0 calc(50% - 184px);
+    margin-top: 8px;
+    min-height: 100px;
 }
 
 .random-area {
-  margin-top: 8px;
+    margin-top: 8px;
 }
 
 .slot-board {
-  margin-top: 24px;
-  border: 10px solid saddlebrown;
+    border: 10px solid saddlebrown;
+    margin: 0 calc(50% - 157px);
+    margin-top: 24px;
 }
 
 .block {
-  font-size: 28px;
-  width: 42px;
-  height: 42px;
-  line-height: 42px;
-  border: 1px solid #eee;
-  background: white;
-  text-align: center;
-  vertical-align: top;
-  display: inline-block;
+    font-size: 28px;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    border: 1px solid #eee;
+    background: white;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.1s;
 }
 
+.block:hover {
+    transform: scale(1.05);
+}
+
+
 .disabled {
-  background: grey;
-  cursor: not-allowed;
+    background: grey;
+    cursor: not-allowed;
+}
+
+.disabled:hover {
+    transform: scale(1);
 }
 </style>
