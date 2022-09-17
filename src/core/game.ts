@@ -47,6 +47,14 @@ const useGame = () => {
   // 操作历史（存储点击的块）
   let opHistory: BlockType[] = [];
 
+  // region 道具相关
+
+  const isHolyLight = ref(false);
+
+  const canSeeRandom = ref(false);
+
+  // endregion
+
   /**
    * 初始化指定大小的棋盘
    * @param width
@@ -281,14 +289,15 @@ const useGame = () => {
    * @param force 强制移除
    */
   const doClickBlock = (block: BlockType, randomIdx = -1, force = false) => {
-    // 已经输了 / 已经被点击 / 有上层块，不能再点击
+    // 已经输了 / 已经被点击 / 有上层块（且非强制和圣光），不能再点击
     if (
       currSlotNum.value >= gameConfig.slotNum ||
       block.status !== 0 ||
-      (block.lowerThanBlocks.length > 0 && !force)
+      (block.lowerThanBlocks.length > 0 && !force && !isHolyLight.value)
     ) {
       return;
     }
+    isHolyLight.value = false;
     // 修改元素状态为已点击
     block.status = 1;
     // 移除当前元素
@@ -456,6 +465,24 @@ const useGame = () => {
     }
   };
 
+  /**
+   * 圣光
+   *
+   * @desc 下一个块可以任意点击
+   */
+  const doHolyLight = () => {
+    isHolyLight.value = true;
+  };
+
+  /**
+   * 透视
+   *
+   * @desc 可以看到随机块
+   */
+  const doSeeRandom = () => {
+    canSeeRandom.value = !canSeeRandom.value;
+  };
+
   // endregion
 
   return {
@@ -469,12 +496,16 @@ const useGame = () => {
     opHistory,
     totalBlockNum,
     clearBlockNum,
+    isHolyLight,
+    canSeeRandom,
     doClickBlock,
     doStart,
     doShuffle,
     doBroke,
     doRemove,
     doRevert,
+    doHolyLight,
+    doSeeRandom,
   };
 };
 

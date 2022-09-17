@@ -19,7 +19,9 @@
           <div
             v-if="block.status === 0"
             class="block level-block"
-            :class="{ disabled: block.lowerThanBlocks.length > 0 }"
+            :class="{
+              disabled: !isHolyLight && block.lowerThanBlocks.length > 0,
+            }"
             :data-id="block.id"
             :style="{
               zIndex: 100 + block.level,
@@ -53,7 +55,11 @@
           v-for="num in Math.max(randomBlock.length - 1, 0)"
           :key="num"
           class="block disabled"
-        ></div>
+        >
+          <span v-if="canSeeRandom">
+            {{ randomBlock[num].type }}
+          </span>
+        </div>
       </div>
     </a-row>
     <!-- 槽位 -->
@@ -69,6 +75,8 @@
         <a-button size="small" @click="doRemove">移出</a-button>
         <a-button size="small" @click="doShuffle">洗牌</a-button>
         <a-button size="small" @click="doBroke">破坏</a-button>
+        <a-button size="small" @click="doHolyLight">圣光</a-button>
+        <a-button size="small" @click="doSeeRandom">透视</a-button>
       </a-space>
     </div>
   </div>
@@ -91,12 +99,16 @@ const {
   heightUnit,
   totalBlockNum,
   clearBlockNum,
+  isHolyLight,
+  canSeeRandom,
   doClickBlock,
   doStart,
   doShuffle,
   doBroke,
   doRemove,
   doRevert,
+  doHolyLight,
+  doSeeRandom,
 } = useGame();
 
 /**
