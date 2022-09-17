@@ -28,10 +28,10 @@ const useGame = () => {
   const blockData: Record<number, BlockType> = {};
 
   // 总块数
-  let totalBlockNum = 0;
+  let totalBlockNum = ref(0);
 
   // 已消除块数
-  let clearBlockNum = 0;
+  let clearBlockNum = ref(0);
 
   // 总共划分 24 x 24 的格子，每个块占 3 x 3 的格子，生成的起始 x 和 y 坐标范围均为 0 ~ 21
   const boxWidthNum = 24;
@@ -99,12 +99,12 @@ const useGame = () => {
 
     // 补齐到 blockNumUnit 的倍数
     // e.g. minBlockNum = 14, blockNumUnit = 6, 补到 18
-    totalBlockNum = minBlockNum;
-    if (totalBlockNum % blockNumUnit !== 0) {
-      totalBlockNum =
+    totalBlockNum.value = minBlockNum;
+    if (totalBlockNum.value % blockNumUnit !== 0) {
+      totalBlockNum.value =
         (Math.floor(minBlockNum / blockNumUnit) + 1) * blockNumUnit;
     }
-    console.log("总块数", totalBlockNum);
+    console.log("总块数", totalBlockNum.value);
 
     // 2. 初始化块，随机生成块的内容
     // 保存所有块的数组
@@ -112,14 +112,14 @@ const useGame = () => {
     // 需要用到的动物数组
     const needAnimals = gameConfig.animals.slice(0, gameConfig.typeNum);
     // 依次把块塞到数组里
-    for (let i = 0; i < totalBlockNum; i++) {
+    for (let i = 0; i < totalBlockNum.value; i++) {
       animalBlocks.push(needAnimals[i % gameConfig.typeNum]);
     }
     // 打乱数组
     const randomAnimalBlocks = _.shuffle(animalBlocks);
 
     // 初始化
-    for (let i = 0; i < totalBlockNum; i++) {
+    for (let i = 0; i < totalBlockNum.value; i++) {
       const newBlock = {
         id: i,
         status: 0,
@@ -146,7 +146,7 @@ const useGame = () => {
     });
 
     // 剩余块数
-    let leftBlockNum = totalBlockNum - totalRandomBlockNum;
+    let leftBlockNum = totalBlockNum.value - totalRandomBlockNum;
 
     // 4. 计算有层级关系的块
     const levelBlocks: BlockType[] = [];
@@ -337,7 +337,7 @@ const useGame = () => {
         // 块状态改为已消除
         slotBlock.status = 2;
         // 已消除块数 +1
-        clearBlockNum++;
+        clearBlockNum.value++;
         // 清除操作记录，防止撤回
         opHistory = [];
         return;
@@ -353,7 +353,7 @@ const useGame = () => {
         alert("你输了");
       }, 2000);
     }
-    if (clearBlockNum >= totalBlockNum) {
+    if (clearBlockNum.value >= totalBlockNum.value) {
       gameStatus.value = 3;
     }
   };
@@ -467,6 +467,8 @@ const useGame = () => {
     heightUnit,
     currSlotNum,
     opHistory,
+    totalBlockNum,
+    clearBlockNum,
     doClickBlock,
     doStart,
     doShuffle,

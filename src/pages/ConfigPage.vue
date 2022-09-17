@@ -20,6 +20,9 @@
       <a-form-item label="动物数" name="typeNum">
         <a-input-number v-model:value="config.typeNum" />
       </a-form-item>
+      <a-form-item label="动物图案" name="animalStr">
+        <a-input v-model:value="config.animalStr" />
+      </a-form-item>
       <a-form-item label="总层数" name="levelNum">
         <a-input-number v-model:value="config.levelNum" />
       </a-form-item>
@@ -28,6 +31,12 @@
       </a-form-item>
       <a-form-item label="边界收缩" name="borderStep">
         <a-input-number v-model:value="config.borderStep" />
+      </a-form-item>
+      <a-form-item label="随机区数" name="randomAreaNum">
+        <a-input-number v-model:value="config.randomAreaNum" />
+      </a-form-item>
+      <a-form-item label="随机区块数" name="randomBlockNum">
+        <a-input-number v-model:value="config.randomBlockNum" />
       </a-form-item>
       <a-form-item>
         <a-button
@@ -53,9 +62,25 @@ import { defaultGameConfig } from "../core/gameConfig";
 const formRef = ref<FormInstance>();
 const router = useRouter();
 const { setGameConfig, setCustomConfig } = useGlobalStore();
-const config = reactive<GameConfigType>({ ...defaultGameConfig });
+const initConfig = {
+  ...defaultGameConfig,
+  randomAreaNum: 2,
+  randomBlockNum: 8,
+  animalStr: defaultGameConfig.animals.join(""),
+};
+const config = reactive<any>(initConfig);
 
-const handleFinish = (values: GameConfigType) => {
+/**
+ * 表单提交
+ * @param values
+ */
+const handleFinish = (values: any) => {
+  config.randomBlocks = new Array(values.randomAreaNum).fill(
+    values.randomBlockNum
+  );
+  if (values.animalStr) {
+    config.animals = Array.from(values.animalStr);
+  }
   setGameConfig(config);
   setCustomConfig(config);
   router.push("/game");

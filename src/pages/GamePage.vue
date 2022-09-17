@@ -1,13 +1,18 @@
 <template>
   <div id="gamePage">
-    <a-button style="margin-bottom: 8px" @click="doBack"> 返回</a-button>
+    <a-row align="space-between">
+      <a-button style="margin-bottom: 8px" @click="doBack"> 返回</a-button>
+      <a-button>块数：{{ clearBlockNum }} / {{ totalBlockNum }}</a-button>
+    </a-row>
+    <!-- 胜利 -->
     <a-row align="center">
-      <!-- 胜利 -->
       <div v-if="gameStatus === 3" style="text-align: center">
         <h2>恭喜，你赢啦！🎉</h2>
         <img alt="程序员鱼皮" src="../assets/kunkun.png" />
       </div>
-      <!-- 分层选块 -->
+    </a-row>
+    <!-- 分层选块 -->
+    <a-row align="center">
       <div v-show="gameStatus > 0" class="level-board">
         <div v-for="(block, idx) in levelBlocksVal" :key="idx">
           <div
@@ -26,47 +31,45 @@
           </div>
         </div>
       </div>
-      <!-- 随机选块 -->
-      <div class="random-board">
+    </a-row>
+    <!-- 随机选块 -->
+    <a-row align="space-between" class="random-board">
+      <div
+        v-for="(randomBlock, index) in randomBlocksVal"
+        :key="index"
+        class="random-area"
+      >
         <div
-          v-for="(randomBlock, index) in randomBlocksVal"
-          :key="index"
-          class="random-area"
-        >
-          <div
-            v-if="randomBlock.length > 0"
-            :data-id="randomBlock[0].id"
-            class="block"
-            @click="() => doClickBlock(randomBlock[0], index)"
-          >
-            {{ randomBlock[0].type }}
-          </div>
-          <!-- 隐藏 -->
-          <div
-            v-for="num in Math.max(randomBlock.length - 1, 0)"
-            :key="num"
-            class="block disabled"
-          ></div>
-        </div>
-      </div>
-      <!-- 槽位 -->
-      <div v-if="slotAreaVal.length > 0" class="slot-board">
-        <div
-          v-for="(slotBlock, index) in slotAreaVal"
-          :key="index"
+          v-if="randomBlock.length > 0"
+          :data-id="randomBlock[0].id"
           class="block"
+          @click="() => doClickBlock(randomBlock[0], index)"
         >
-          {{ slotBlock?.type }}
+          {{ randomBlock[0].type }}
         </div>
+        <!-- 隐藏 -->
+        <div
+          v-for="num in Math.max(randomBlock.length - 1, 0)"
+          :key="num"
+          class="block disabled"
+        ></div>
       </div>
-      <!-- 技能 -->
-      <a-space style="margin-top: 16px">
+    </a-row>
+    <!-- 槽位 -->
+    <a-row v-if="slotAreaVal.length > 0" align="center" class="slot-board">
+      <div v-for="(slotBlock, index) in slotAreaVal" :key="index" class="block">
+        {{ slotBlock?.type }}
+      </div>
+    </a-row>
+    <!-- 技能 -->
+    <div class="skill-board">
+      <a-space>
         <a-button size="small" @click="doRevert">撤回</a-button>
         <a-button size="small" @click="doRemove">移出</a-button>
         <a-button size="small" @click="doShuffle">洗牌</a-button>
         <a-button size="small" @click="doBroke">破坏</a-button>
       </a-space>
-    </a-row>
+    </div>
   </div>
 </template>
 
@@ -84,6 +87,8 @@ const {
   slotAreaVal,
   widthUnit,
   heightUnit,
+  totalBlockNum,
+  clearBlockNum,
   doClickBlock,
   doStart,
   doShuffle,
@@ -122,8 +127,13 @@ onMounted(() => {
 }
 
 .slot-board {
-  margin-top: 24px;
   border: 10px solid saddlebrown;
+  margin: 16px auto;
+  width: fit-content;
+}
+
+.skill-board {
+  text-align: center;
 }
 
 .block {
