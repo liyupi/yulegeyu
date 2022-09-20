@@ -53,7 +53,7 @@
 
 - 阿里云安全组放开8111端口
 
-![docker镜像构建目录](doc/aliport.png)
+![docker镜像构建目录](doc/aliport.jpg)
 
 - 示例图
 
