@@ -30,5 +30,37 @@
 3. 随机生成块：包括随机生成方块的图案和坐标。首先我根据全局参数计算出了总块数，然后用 shuffle 函数打乱存储所有动物图案的数组，再依次将数组中的图案填充到方块中。生成坐标的原理是随机选取坐标范围内的点，坐标范围可以随着层级的增加而递减，即生成的图案越来越挤，达到难度逐层加大的效果。
 4. 块的覆盖关系：怎么做到点击上层的块后，才能点下层的块呢？首先要给每个块指定一个层级属性。然后有两种思路，第 1 种是先逐层生成，然后每个格子里层级最高的块依次判断其周围格子有没有块层级大于它；第 2 种是在随机生成块的时候就给相互重叠的块绑定层级关系（即谁覆盖了我？我覆盖了谁？）。这里我选择了第 2 种方法，感觉效率会高一些。
 
+## 启动命令
+
+- 安装：yarn install
+- 本地启动：yarn dev
+- 构建：yarn build
+
+## docker
+
+### 打镜像目录
+
+![docker镜像构建目录](doc/build_docker_image_dir.png)
+
+### 相关命令
+
+- docker build -f Dockerfile -t yulegeyu .
+![docker镜像构建目录](doc/building.png)
+- docker images
+![docker镜像构建目录](doc/build_done.png)
+- docker run --name yulegeyu -p 8111:80 -d yulegeyu
+![docker镜像构建目录](doc/docker_run.png)
+
+- 阿里云安全组放开8111端口
+
+![docker镜像构建目录](doc/aliport.jpg)
+
+- 示例图
+
+![docker镜像构建目录](doc/game1.png)
+![docker镜像构建目录](doc/game2.png)
+
+
+
 
 
