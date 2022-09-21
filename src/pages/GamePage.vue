@@ -16,49 +16,31 @@
     <a-row align="center">
       <div v-show="gameStatus > 0" class="level-board">
         <div v-for="(block, idx) in levelBlocksVal" :key="idx">
-          <div
-            v-if="block.status === 0"
-            class="block level-block"
-            :class="{
-              disabled: !isHolyLight && block.lowerThanBlocks.length > 0,
-            }"
-            :data-id="block.id"
-            :style="{
-              zIndex: 100 + block.level,
-              left: block.x * widthUnit + 'px',
-              top: block.y * heightUnit + 'px',
-            }"
-            @click="() => doClickBlock(block)"
-          >
+          <div v-if="block.status === 0" class="block block-1 level-block" :class="{
+            disabled: !isHolyLight && block.lowerThanBlocks.length > 0,
+          }" :data-id="block.id" :style="{
+            zIndex: 100 + block.level,
+            left: block.x * widthUnit + 'px',
+            top: block.y * heightUnit + 'px',
+          }" @click="() => doClickBlock(block)">
             {{ block.type }}
           </div>
         </div>
       </div>
     </a-row>
     <!-- 随机选块 -->
-    <a-row align="space-between" class="random-board">
-      <div
-        v-for="(randomBlock, index) in randomBlocksVal"
-        :key="index"
-        class="random-area"
-      >
-        <div
-          v-if="randomBlock.length > 0"
-          :data-id="randomBlock[0].id"
-          class="block"
-          @click="() => doClickBlock(randomBlock[0], index)"
-        >
-          {{ randomBlock[0].type }}
-        </div>
+    <a-row align="space-around" class="random-board">
+      <div v-for="(randomBlock, index) in randomBlocksVal" :key="index" class="random-area">
         <!-- 隐藏 -->
-        <div
-          v-for="num in Math.max(randomBlock.length - 1, 0)"
-          :key="num"
-          class="block disabled"
-        >
+        <div v-for="num in Math.max(randomBlock.length - 1, 0)" :key="num" class="block block-2 disabled">
           <span v-if="canSeeRandom">
             {{ randomBlock[num].type }}
           </span>
+        </div>
+        <!-- 展示 -->
+        <div v-if="randomBlock.length > 0" :data-id="randomBlock[0].id" class="block block-2"
+          @click="() => doClickBlock(randomBlock[0], index)">
+          {{ randomBlock[0].type }}
         </div>
       </div>
     </a-row>
@@ -160,6 +142,17 @@ onMounted(() => {
   text-align: center;
   vertical-align: top;
   display: inline-block;
+}
+
+.block-1 {
+  border-radius: 4px;
+  border: 1px solid #666;
+}
+
+.block-2 {
+  margin-left: -30px;
+  border-radius: 4px;
+  border: 1px solid #666;
 }
 
 .disabled {
