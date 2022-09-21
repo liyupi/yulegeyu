@@ -2,9 +2,9 @@
 
 > 被羊了个羊虐了百遍后，我自己做了一个！
 
-在线体验：https://yulegeyu.cn
 
-游戏视频：https://www.bilibili.com/video/BV1Pe411M7wh
+
+
 
 相关文章：https://mp.weixin.qq.com/s/D_I1Tq-ofhKhlp0rkOpaLA
 
