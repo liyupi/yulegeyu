@@ -1,7 +1,7 @@
 /**
  * 游戏逻辑 V2（不固定 level）
  *
- * @author yupi https://github.com/liyupi
+ * 
  */
 import { useGlobalStore } from "./globalStore";
 // @ts-ignore
@@ -231,7 +231,7 @@ const useGame = () => {
       let newPosY;
       let key;
       while (true) {
-        newPosX = Math.floor(Math.random() * maxX + minX);
+        newPosX = Math.floor(Math.random() * (maxX + minX));
         newPosY = Math.floor(Math.random() * maxY + minY);
         key = newPosX + "," + newPosY;
         // 同批次元素不能完全重叠

@@ -17,10 +17,10 @@
       <a-form-item label="合成数" name="composeNum">
         <a-input-number v-model:value="config.composeNum" />
       </a-form-item>
-      <a-form-item label="动物数" name="typeNum">
+      <a-form-item label="图案种类" name="typeNum">
         <a-input-number v-model:value="config.typeNum" />
       </a-form-item>
-      <a-form-item label="动物图案" name="animalStr">
+      <a-form-item label="图案" name="animalStr">
         <a-input v-model:value="config.animalStr" />
       </a-form-item>
       <a-form-item label="总层数" name="levelNum">

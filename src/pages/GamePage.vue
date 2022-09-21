@@ -8,8 +8,8 @@
     <a-row align="center">
       <div v-if="gameStatus === 3" style="text-align: center">
         <h2>恭喜，你赢啦！🎉</h2>
-        <img alt="程序员鱼皮" src="../assets/kunkun.png" />
-        <my-ad style="margin-top: 16px" />
+        <!-- <img alt="" src="../assets/kunkun.png" /> -->
+        <!-- <my-ad style="margin-top: 16px" /> -->
       </div>
     </a-row>
     <!-- 分层选块 -->
@@ -141,7 +141,7 @@ onMounted(() => {
 }
 
 .slot-board {
-  border: 10px solid saddlebrown;
+  border: 10px solid hsl(196, 51%, 70%);
   margin: 16px auto;
   width: fit-content;
 }
@@ -155,15 +155,18 @@ onMounted(() => {
   width: 42px;
   height: 42px;
   line-height: 42px;
-  border: 1px solid #eee;
-  background: white;
+  border: 0.5px hsl(194, 0%, 30%);
+  /* transform: translate(0, -15%) rotate(-4deg); */
+  /* transform-origin: center center; */
+  box-shadow: 2px 2px 2px 2px hsl(130, 30%, 72%);
+  background: hsl(0, 8%, 94%);
   text-align: center;
   vertical-align: top;
   display: inline-block;
 }
 
 .disabled {
-  background: grey;
+  background: hsl(204, 8%, 70%);
   cursor: not-allowed;
 }
 </style>

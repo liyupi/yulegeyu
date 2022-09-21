@@ -1,28 +1,28 @@
 <template>
   <div id="indexPage">
-    <h1>🐟 鱼了个鱼</h1>
-    <div style="margin-bottom: 16px">低配版羊了个羊小游戏，仅供消遣</div>
-    <a-button
+    <h1>喵了个喵ฅʕ•̫͡•ʔฅ</h1>
+    <div style="margin-bottom: 16px">改编自鱼了个鱼</div>
+    <!-- <a-button
       block
       style="margin-bottom: 16px"
       @click="toGamePage(easyGameConfig)"
-    >
-      简单模式
+    > -->
+    <!-- 简单模式
     </a-button>
     <a-button
       block
       style="margin-bottom: 16px"
-      @click="toGamePage(middleGameConfig)"
-    >
-      中等模式
+      @click="toGamePage(middleGameConfig)" -->
+    <!-- > -->
+    <!--  中等模式
     </a-button>
     <a-button
       block
       style="margin-bottom: 16px"
       @click="toGamePage(hardGameConfig)"
-    >
-      困难模式
-    </a-button>
+    > -->
+    <!-- 困难模式 -->
+    <!-- </a-button> -->
     <a-button
       block
       style="margin-bottom: 16px"
@@ -30,13 +30,13 @@
     >
       地狱模式
     </a-button>
-    <a-button
+    <!-- <a-button
       block
       style="margin-bottom: 16px"
       @click="toGamePage(skyGameConfig)"
     >
       天域模式
-    </a-button>
+    </a-button> -->
     <a-button
       block
       style="margin-bottom: 16px"
@@ -49,18 +49,12 @@
     </a-button>
     <my-ad />
     <div class="footer">
-      鱼了个鱼 ©2022 by
-      <a href="https://github.com/liyupi" target="_blank" style="color: #fff">
-        程序员鱼皮
+      喵了个喵 ©2022 by
+      <a href="https://github.com/MeiXue16" target="_blank" style="color: #fff">
+        Mei
       </a>
       |
-      <a
-        href="https://github.com/liyupi/yulegeyu"
-        target="_blank"
-        style="color: #fff"
-      >
-        代码开源
-      </a>
+      <a href=" " target="_blank" style="color: #fff"> 代码开源 </a>
     </div>
   </div>
 </template>
@@ -68,11 +62,11 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import {
-  easyGameConfig,
-  middleGameConfig,
-  hardGameConfig,
+  // easyGameConfig,
+  // middleGameConfig,
+  // hardGameConfig,
   lunaticGameConfig,
-  skyGameConfig,
+  // skyGameConfig,
   yangGameConfig,
 } from "../core/gameConfig";
 import { useGlobalStore } from "../core/globalStore";

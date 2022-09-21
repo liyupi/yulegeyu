@@ -1,35 +1,64 @@
+// <template> <div id="div1"></div> </template>
+
 // 动物数组
 const animals = [
-  "🐔",
-  "🐟",
-  "🦆",
-  "🐶",
-  "🐱",
-  "🐴",
-  "🐑",
-  "🐦",
-  "🐧",
-  "🐊",
-  "🐺",
-  "🐒",
-  "🐳",
-  "🐬",
-  "🐢",
-  "🦖",
-  "🦒",
-  "🦁",
-  "🐍",
-  "🐭",
-  "🐂",
-];
+	'✂',
+	'🤡',
+	'🐾',
+	'🐝',
+	'🎄',
+	'🏐',
+	'🍔',
+	'🍜',
+	'🍓',
+	'🍦',
+	'🍐',
+	'🚦',
+	'💦',
+	'🥐',
+	'🍑',
+	'🍩',
+	'🍋',
+	'🍨',
+	'🥑',
+	'⚽',
+	'🧀',
+	'🍖',
+	'🍭',
+	];
 
+// let text = "<div>";
+// defaultGameConfig.animals.forEach(myFunk);
+// text += "</div>";
+// document.getElementById("form_item_animalStr").innerHTML = text;
+// const animals = text;
+// function myFunk(value) {
+//   text += "<img src=" + value + "/>";
+// }
+
+
+// function trImg(arr){
+// 	var imgAll = []; //定义一个空数组用于存放转换后的对象
+// 		for(var i in arr){
+// 			imgAll[i] = new Image();//将新数组的每个对象定义为图片对象
+// 			imgAll[i].src = arr[i];//定义图片对象的地址为原数组中的图片地址
+// 		}
+// 	return imgAll;
+// }
+
+// const animals =trImg(animal);
+
+// declare function require(string): string;
+// // const i1 = require('../assets/alien.png');
+// import img1 from '../assets/alien.png';
+// import img2 from '../assets/bee.png';
 export const defaultGameConfig: GameConfigType = {
   // 槽容量
   slotNum: 7,
   // 需要多少个一样块的才能合成
   composeNum: 3,
   // 动物类别数
-  typeNum: 12,
+  typeNum: 10,
   // 每层块数（大致）
   levelBlockNum: 24,
   // 边界收缩步长
@@ -161,9 +190,9 @@ export const yangGameConfig: GameConfigType = {
   // 需要多少个一样块的才能合成
   composeNum: 3,
   // 动物类别数
-  typeNum: 18,
+  typeNum: 16,
   // 每层块数（大致）
-  levelBlockNum: 28,
+  levelBlockNum: 24,
   // 边界收缩步长
   borderStep: 3,
   // 总层数（最小为 2）
