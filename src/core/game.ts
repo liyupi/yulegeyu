@@ -14,13 +14,13 @@ const useGame = () => {
   // 游戏状态：0 - 初始化, 1 - 进行中, 2 - 失败结束, 3 - 胜利
   const gameStatus = ref(0);
 
-  // 各层块
+  // 各层块, consider as 1d array, defines the layers.
   const levelBlocksVal = ref<BlockType[]>([]);
-  // 随机区块
+  // 随机区块, condider as 2d array, dfines x,y in each layers.
   const randomBlocksVal = ref<BlockType[][]>([]);
-  // 插槽区
+  // 插槽区, 1d array, defines the location in the game slot. shold not be larger than the length of the slot
   const slotAreaVal = ref<BlockType[]>([]);
-  // 当前槽占用数
+  // 当前槽占用数, should be smaller than the slot num
   const currSlotNum = ref(0);
 
   // 保存所有块（包括随机块）
@@ -327,6 +327,7 @@ const useGame = () => {
     const tempSlotAreaVal = slotAreaVal.value.filter(
       (slotBlock) => !!slotBlock
     );
+    // Method: map[type] will record the type(string value) of the block. Then add value. If a new type is added, the value will be covered.
     tempSlotAreaVal.forEach((slotBlock) => {
       const type = slotBlock.type;
       if (!map[type]) {

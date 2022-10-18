@@ -1,14 +1,14 @@
 <template>
   <div id="gamePage">
     <a-row align="space-between">
-      <a-button style="margin-bottom: 8px" @click="doBack"> 返回</a-button>
+      <a-button style="margin-bottom: 8px" @click="doBack"> Back</a-button>
       <a-button>块数：{{ clearBlockNum }} / {{ totalBlockNum }}</a-button>
     </a-row>
     <!-- 胜利 -->
     <a-row align="center">
       <div v-if="gameStatus === 3" style="text-align: center">
-        <h2>恭喜，你赢啦！🎉</h2>
-        <img alt="程序员鱼皮" src="../assets/kunkun.png" />
+        <h2>You win!</h2>
+        <img alt="For traching" src="../assets/kunkun.png" />
         <my-ad style="margin-top: 16px" />
       </div>
     </a-row>
@@ -30,7 +30,8 @@
             }"
             @click="() => doClickBlock(block)"
           >
-            {{ block.type }}
+            <img :src="block.type" alt=""/>
+            <!--{{ block.type }}-->
           </div>
         </div>
       </div>
@@ -48,7 +49,7 @@
           class="block"
           @click="() => doClickBlock(randomBlock[0], index)"
         >
-          {{ randomBlock[0].type }}
+          <img :src="randomBlock[0].type" alt=""/>
         </div>
         <!-- 隐藏 -->
         <div
@@ -57,7 +58,7 @@
           class="block disabled"
         >
           <span v-if="canSeeRandom">
-            {{ randomBlock[num].type }}
+            <img :src="randomBlock[num].type" alt=""/>
           </span>
         </div>
       </div>
@@ -65,18 +66,18 @@
     <!-- 槽位 -->
     <a-row v-if="slotAreaVal.length > 0" align="center" class="slot-board">
       <div v-for="(slotBlock, index) in slotAreaVal" :key="index" class="block">
-        {{ slotBlock?.type }}
+        <img :src = "slotBlock?.type" alt=""/>
       </div>
     </a-row>
     <!-- 技能 -->
     <div class="skill-board">
       <a-space>
-        <a-button size="small" @click="doRevert">撤回</a-button>
-        <a-button size="small" @click="doRemove">移出</a-button>
-        <a-button size="small" @click="doShuffle">洗牌</a-button>
-        <a-button size="small" @click="doBroke">破坏</a-button>
-        <a-button size="small" @click="doHolyLight">圣光</a-button>
-        <a-button size="small" @click="doSeeRandom">透视</a-button>
+        <a-button size="small" @click="doRevert">Revert</a-button>
+        <a-button size="small" @click="doRemove">Remove</a-button>
+        <a-button size="small" @click="doShuffle">Shuffle</a-button>
+        <a-button size="small" @click="doBroke">Broke</a-button>
+        <a-button size="small" @click="doHolyLight">Holylight</a-button>
+        <a-button size="small" @click="doSeeRandom">See hidden</a-button>
       </a-space>
     </div>
   </div>
@@ -155,15 +156,27 @@ onMounted(() => {
   width: 42px;
   height: 42px;
   line-height: 42px;
-  border: 1px solid #eee;
+  border: 1px solid rgb(139, 69, 19);
   background: white;
   text-align: center;
   vertical-align: top;
   display: inline-block;
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    filter: saturate(130%);
+}
+
+
+
 .disabled {
   background: grey;
   cursor: not-allowed;
+  filter: grayscale(100%) brightness(55%);
 }
+
+
 </style>
