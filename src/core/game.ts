@@ -435,6 +435,7 @@ const useGame = () => {
       return;
     }
     opHistory[opHistory.length - 1].status = 0;
+    genLevelRelation(slotAreaVal.value[currSlotNum.value - 1])
     // @ts-ignore
     slotAreaVal.value[currSlotNum.value - 1] = null;
   };
