@@ -35,7 +35,7 @@
       style="margin-bottom: 16px"
       @click="toGamePage(skyGameConfig)"
     >
-      天域模式
+      天狱模式
     </a-button>
     <a-button
       block
