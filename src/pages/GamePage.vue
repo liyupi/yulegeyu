@@ -166,4 +166,8 @@ onMounted(() => {
   background: grey;
   cursor: not-allowed;
 }
+
+.block:not(.disabled) {
+  cursor: pointer;
+}
 </style>
